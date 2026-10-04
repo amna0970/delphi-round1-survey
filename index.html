@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round 1 survey | Delphi study on predatory journals</title>
+<style>
+:root{
+  --paper:#F1F4F6; --surface:#FFFFFF; --ink:#17222E; --ink-2:#4A5967; --line:#D2DAE2; --line-2:#E5EAEF;
+  --brand:#0A5566; --brand-dark:#073F4C; --tint:#E6F0F3;
+  --r1:#E3EEF1; --r2:#B7D5DC; --r3:#72A8B7; --r4:#2C7D90; --r5:#0A5566;
+  --err:#B3261E; --err-bg:#FCEDEB; --ok:#1B7A4B; --focus:#D99A00;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0}
+h1{font-size:2.1rem;letter-spacing:-.01em}
+h1::after{content:"";display:block;width:52px;height:3px;background:var(--focus);border-radius:2px;margin-top:16px}
+h2{font-size:1.3rem;margin:2.2rem 0 .5rem;padding-top:1.4rem;border-top:1px solid var(--line-2)}
+h2:first-of-type{border-top:0;padding-top:0}
+.kicker{font-size:.76rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand);margin:0 0 .6rem}
+.instlogo{display:block;height:46px;width:auto;margin:0 0 1.4rem}
+p{margin:0 0 1em}
+a{color:var(--brand)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+
+/* top bar */
+.top{background:var(--brand-dark);color:#fff;border-bottom:3px solid var(--focus)}
+.top-in{max-width:1120px;margin:0 auto;padding:15px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.top .title{font-family:var(--serif);font-size:1.05rem;font-weight:600;letter-spacing:.01em}
+.top .round{font-size:.84rem;opacity:.88;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase}
+.preview{background:#FFF3CD;color:#5B4300;font-size:.9rem;padding:8px 20px;text-align:center;border-bottom:1px solid #EBD48A}
+
+/* layout */
+.shell{max-width:1120px;margin:0 auto;padding:28px 20px 56px;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+.shell.with-rail{grid-template-columns:268px minmax(0,1fr)}
+.rail{position:sticky;top:20px;align-self:start;font-size:.95rem;max-height:calc(100vh - 40px);overflow:auto;padding-right:4px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:38px 42px;max-width:780px;width:100%;box-shadow:0 1px 2px rgba(23,34,46,.04),0 14px 32px -18px rgba(23,34,46,.22)}
+.shell:not(.with-rail) .sheet{margin:0 auto}
+.foot{max-width:1120px;margin:0 auto;padding:0 20px 40px;color:var(--ink-2);font-size:.85rem}
+.foot p{max-width:780px;margin:0 0 .4em}
+.lede{font-size:1.1rem;color:var(--ink-2);margin:.7rem 0 1.4rem}
+.small{font-size:.9rem;color:var(--ink-2)}
+
+/* progress rail */
+.meter{margin-bottom:18px}
+.meter b{font-size:1.5rem;font-family:var(--serif)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--brand);width:0}
+.rail ol,.mbody ol{list-style:none;margin:0;padding:0}
+.rail li,.mbody li{margin:0}
+.ri{display:flex;width:100%;align-items:center;gap:10px;text-align:left;background:none;border:0;border-radius:8px;padding:7px 8px;cursor:pointer;color:var(--ink)}
+.ri:hover{background:var(--line-2)}
+.ri .mk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--ink-2);background:#fff}
+.ri .lbl{flex:1;line-height:1.3}
+.ri .cnt{font-size:.8rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.ri.part .mk{background:var(--tint);border-color:var(--r3);color:var(--brand-dark)}
+.ri.done .mk{background:var(--brand);border-color:var(--brand);color:#fff}
+.ri.cur{background:var(--tint)}
+.ri.cur .lbl{font-weight:650}
+.ri.cur .mk{border-color:var(--brand);box-shadow:0 0 0 2px var(--tint),0 0 0 4px var(--brand)}
+.rail hr,.mbody hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+.mrail{display:none}
+
+/* welcome */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:1.6rem 0;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.1}
+.facts dd{margin:.25rem 0 0;color:var(--ink-2);font-size:.92rem;line-height:1.35}
+.notice{background:var(--tint);border-left:4px solid var(--brand);padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 1.4rem}
+.notice p{margin:0 0 .6em}
+
+/* consent */
+details.pis{margin:1.3rem 0 1.7rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 20px 2px}
+details.pis summary{cursor:pointer;list-style:none;margin:0 -20px;padding:15px 20px 15px 42px;position:relative;font-family:var(--serif);font-weight:600;color:var(--brand-dark);background:var(--tint);border-radius:10px}
+details.pis[open] summary{border-radius:10px 10px 0 0}
+details.pis summary::-webkit-details-marker{display:none}
+details.pis summary::before{content:"\25B8";position:absolute;left:19px;top:50%;transform:translateY(-50%);font-size:.85em;color:var(--brand);transition:transform .15s ease}
+details.pis[open] summary::before{transform:translateY(-50%) rotate(90deg)}
+details.pis[open]{padding-bottom:18px}
+.pis h3{font-size:1.05rem;margin:1.3rem 0 .3rem}
+.pis h3:first-of-type{margin-top:1.2rem}
+.pis h4{font-size:.94rem;margin:1rem 0 .25rem;color:var(--brand-dark)}
+.pis p{margin:0 0 .8em;font-size:.96rem}
+.pis ol.refs{margin:.4rem 0 1rem;padding-left:1.3rem;font-size:.9rem;color:var(--ink-2)}
+.pis ol.refs li{margin:0 0 .55em}
+.confirm{margin:.4rem 0 1.2rem;padding-left:1.2rem}
+.confirm li{margin:.2rem 0}
+.consent-box{margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--line-2);display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border:1.5px solid var(--line);border-radius:9px;margin:0;cursor:pointer;background:#fff;transition:border-color .12s ease,background-color .12s ease}
+.choice:hover{border-color:var(--r3)}
+.choice input{margin:.3rem 0 0;width:18px;height:18px;flex:none;accent-color:var(--brand)}
+.choice:has(input:checked){border-color:var(--brand);background:var(--tint)}
+.choice .other{margin-top:8px;width:100%}
+.choice .grow{flex:1;min-width:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:9px;border:1.5px solid var(--brand);background:var(--brand);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 1px 2px rgba(7,63,76,.2);transition:background-color .15s ease,box-shadow .15s ease,transform .05s ease}
+.btn:hover{background:var(--brand-dark);border-color:var(--brand-dark);box-shadow:0 3px 8px rgba(7,63,76,.25)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:#fff;color:var(--brand);box-shadow:none}
+.btn.ghost:hover{background:var(--tint)}
+.linkbtn.inline{padding:0;font:inherit;display:inline;vertical-align:baseline}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--line);flex-wrap:wrap}
+.linkbtn{background:none;border:0;padding:4px 0;color:var(--brand);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:.95rem}
+
+/* rating legend + items */
+.legend{list-style:none;margin:1rem 0 0;padding:10px 0;display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.82rem;color:var(--ink-2);background:var(--surface);border-bottom:1px solid var(--line)}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend b{display:grid;place-items:center;width:22px;height:22px;border-radius:5px;font-size:.78rem;color:var(--ink);border:1px solid var(--brand)}
+.legend .l1 b{background:var(--r1)}.legend .l2 b{background:var(--r2)}.legend .l3 b{background:var(--r3)}
+.legend .l4 b{background:var(--r4);color:#fff}.legend .l5 b{background:var(--r5);color:#fff}
+.secnum{display:flex;align-items:baseline;gap:10px}
+.secnum::after{content:none}
+.secnum .num{font-family:var(--serif);font-size:2.1rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.secnum .lbl{font-weight:700;font-size:.95rem;color:var(--brand-dark)}
+.reminder{font-style:italic;color:var(--brand-dark);font-size:.92rem;margin:1rem 0 0;line-height:1.5}
+.fieldlabel{display:block;font-weight:600;color:var(--ink);margin:1.2rem 0 .4rem;font-size:.96rem}
+.catrow td{background:var(--tint)!important;font-family:var(--serif);font-weight:600;color:var(--brand-dark);padding:10px 12px!important}
+.catrow .n{text-transform:uppercase}
+.catrow .cnt{font-family:var(--sans);font-weight:400;color:var(--ink-2);font-size:.88rem}
+.tablewrap{margin-top:.6rem;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px}
+.scrollhint{display:none;font-size:.82rem;color:var(--ink-2);margin:8px 2px 0}
+.qtable,.pill input,.reform textarea,.q{scroll-margin-top:120px}
+.qtable{width:672px;max-width:none;border-collapse:collapse;table-layout:fixed;background:#fff}
+.qtable caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--ink-2);padding:10px 12px 0}
+.qtable th,.qtable td{border:1px solid var(--line-2);padding:10px 12px;vertical-align:top;text-align:left}
+.qtable thead th{background:var(--brand);color:#fff;font-family:var(--serif);font-weight:600;font-size:.92rem;line-height:1.25;border-color:var(--brand-dark)}
+.qtable thead th .opt{display:block;font-family:var(--sans);font-weight:400;font-size:.78rem;opacity:.85;margin-top:2px}
+.qtable .colcode{width:52px}
+.qtable .coltext{width:230px}
+.qtable .colrate{width:220px}
+.qtable .colreform{width:170px}
+.qtable td.code{font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;text-align:center}
+.qtable td.text{font-size:.98rem;line-height:1.45}
+.qtable tbody tr:nth-child(even) td{background:var(--paper)}
+.qtable tbody tr.bad td{background:var(--err-bg)}
+.qtable tbody tr.flash td{animation:flash 1.4s ease-out}
+.rlabel{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.pill{position:relative;display:block}
+.pill input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.pill span{display:grid;place-items:center;min-height:42px;border:1.5px solid var(--line);border-radius:8px;background:#fff;font-weight:600;font-size:1rem}
+.pill:hover span{border-color:var(--brand)}
+.pill input:focus-visible + span{outline:3px solid var(--focus);outline-offset:2px}
+.pill input:checked + span{border-color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand);font-weight:700}
+.pill.l1 input:checked + span{background:var(--r1)}
+.pill.l2 input:checked + span{background:var(--r2)}
+.pill.l3 input:checked + span{background:var(--r3)}
+.pill.l4 input:checked + span{background:var(--r4);color:#fff}
+.pill.l5 input:checked + span{background:var(--r5);color:#fff}
+.chosen{font-size:.8rem;color:var(--brand-dark);font-weight:600;min-height:1.3em;margin:5px 0 0}
+.reform textarea{min-height:54px;font-size:.9rem;padding:7px 9px}
+textarea,input[type=text],select{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff}
+textarea{min-height:88px;resize:vertical;line-height:1.5}
+select{min-height:46px;max-width:420px}
+textarea:hover,input[type=text]:hover,select:hover{border-color:var(--r3)}
+@keyframes flash{from{background:#FFF1C2}to{background:transparent}}
+.err{color:var(--err);font-size:.92rem;font-weight:600;margin:6px 0 0}
+.alert{background:var(--err-bg);border-left:4px solid var(--err);padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 1.2rem}
+.alert p{margin:0 0 .4em}.alert p:last-child{margin:0}
+.alert.ok{background:#E9F5EE;border-left-color:var(--ok)}
+
+/* demographics */
+.q{border:0;padding:0;margin:0 0 2rem;min-width:0}
+.q legend{font-family:var(--serif);font-weight:600;font-size:1.15rem;padding:0;margin-bottom:.2rem}
+.q .hint{margin:0 0 .6rem;color:var(--ink-2);font-size:.92rem}
+.q.bad .choice{border-color:#E9B5B0}
+
+/* review */
+.sum{list-style:none;margin:1rem 0 0;padding:0}
+.sum li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);align-items:flex-start}
+.sum .st{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:700;color:#fff;background:var(--ok)}
+.sum .st.x{background:var(--err)}
+.sum .st.o{background:var(--r3);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chips button{border:1px solid var(--err);background:#fff;color:var(--err);border-radius:6px;padding:2px 10px;font-weight:700;cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ref{display:inline-block;font-family:var(--serif);font-size:1.4rem;letter-spacing:.06em;padding:6px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);margin:.3rem 0 1rem}
+
+@media (max-width:900px){
+  .shell.with-rail{grid-template-columns:minmax(0,1fr);gap:0;padding-top:0}
+  .top .title{font-size:.95rem;line-height:1.3}
+  .rail{display:none}
+  .mrail{display:block;position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+  .mrail summary{list-style:none;cursor:pointer;padding:10px 20px;font-size:.92rem;display:flex;justify-content:space-between;gap:12px;align-items:center}
+  .mrail summary::-webkit-details-marker{display:none}
+  .mrail summary::after{content:"Sections";color:var(--brand);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+  .mrail[open] summary::after{content:"Close"}
+  .mrail .bar{margin:0;border-radius:0;height:4px}
+  .mrail .mbody{padding:8px 12px 14px;max-height:65vh;overflow:auto;border-top:1px solid var(--line)}
+  .sheet{padding:24px 18px;border-radius:0;border-left:0;border-right:0;margin:0 -20px;width:auto;max-width:none}
+  h1{font-size:1.65rem}
+  .scrollhint{display:block}
+  .pill span{min-height:46px}
+}
+@media (min-width:901px){.legend{position:sticky;top:0;z-index:5}}
+@media (prefers-reduced-motion:reduce){.qtable tr.flash td{animation:none}*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<noscript><p style="padding:24px;font-size:1.1rem">This survey needs JavaScript. Please enable it in your browser and reload the page.</p></noscript>
+<div id="previewbar" class="preview" hidden>Preview mode: no data connection is set up, so nothing you enter is sent anywhere. You will get a CSV file at the end.</div>
+<header class="top"><div class="top-in"><div class="title">Development of a checklist of characteristics to help identify predatory journals: a Delphi study (Round 1)</div><div class="round">Round 1 of 2</div></div></header>
+<details class="mrail" id="mrail" hidden><summary><span id="msum"></span></summary><div class="bar"><i id="mbar"></i></div><div class="mbody" id="mbody"></div></details>
+<div class="shell" id="shell">
+  <nav class="rail" id="rail" aria-label="Survey sections" hidden></nav>
+  <main class="sheet" id="main" tabindex="-1"></main>
+</div>
+<footer class="foot">
+  <p>Part of a PhD research project at Maastricht University, in collaboration with BMJ. Approved by the Research Ethics Committee at Riyadh Second Health Cluster, Riyadh, Saudi Arabia (reference 26-610).</p>
+</footer>
+
+<script>
+"use strict";
+/* ---------------------------------------------------------------
+   SETTINGS: the only lines you normally need to edit
+---------------------------------------------------------------- */
+const CONFIG = {
+  endpoint: "https://script.google.com/macros/s/AKfycbwMfv40uE1qdYxIyLFMfDK8mmMW9vIqervFJNsmIXgDdVI0uQooVkLfLlxdeBuZjYAk/exec",
+  surveyVersion: "Round 1 (V5)",
+  protocolUrl: "https://zenodo.org/records/22936128",
+  ethicsEmail: "InstitutionalReviewBoard@kfmc.med.sa",
+  storageKey: "delphi-r1-v5-draft"
+};
+const SPEC = {"cats": [{"n": 1, "name": "Peer Review, Publication, and Submission Process", "items": [{"code": "1A", "text": "Inadequate or absent peer review and editorial quality control"}, {"code": "1B", "text": "Unusually rapid acceptance and publication timelines"}, {"code": "1C", "text": "Lack of an online submission system"}, {"code": "1D", "text": "Non-transparent or poorly described publishing process"}]}, {"n": 2, "name": "Editorial Behavior", "items": [{"code": "2A", "text": "Absence of conflict-of-interest and ethics approval statements; weak enforcement of ethical practices"}, {"code": "2B", "text": "Acceptance of most or all submissions, including those outside the journal’s scope or of poor quality"}, {"code": "2C", "text": "A large proportion of articles authored by editors in the journals they oversee (excluding editorials)"}]}, {"n": 3, "name": "Journal Scope, Content, and Maturity", "items": [{"code": "3A", "text": "Poorly designed or disorganized journal website or archive"}, {"code": "3B", "text": "Limited publishing history or unstable publication record"}, {"code": "3C", "text": "Rapid launch of journals that focus on trending or high-interest topics"}, {"code": "3D", "text": "Publication of an unusually high volume of thematic issues managed by guest editors"}]}, {"n": 4, "name": "Research Integrity", "items": [{"code": "4A", "text": "Duplicate publication, redundant publication, or salami slicing"}, {"code": "4B", "text": "Negative reputation or criticism in blogs, media, or professional discussions"}, {"code": "4C", "text": "Coercive author-rights practices, such as demanding payment to withdraw the manuscript, or copyright transfer before acceptance"}, {"code": "4D", "text": "Misuse of author or institutional information for spam or marketing"}, {"code": "4E", "text": "Use of coordinated or coercive cross-citation to artificially inflate journal citations"}]}, {"n": 5, "name": "Author Fees", "items": [{"code": "5A", "text": "Non-transparent APCs or hidden charges disclosed late or after acceptance"}, {"code": "5B", "text": "Payment is requested through informal, personal, or unverifiable third-party payment channels"}, {"code": "5C", "text": "APCs that are unusually low"}, {"code": "5D", "text": "Failure to publish an accepted article after receiving the requested publication fee"}]}, {"n": 6, "name": "Marketing Tactics and Profit-Driven Behavior", "items": [{"code": "6A", "text": "Easy 24/7 online payment methods emphasized"}, {"code": "6B", "text": "Use of business or advertising language to encourage manuscript submissions"}, {"code": "6C", "text": "Targeting junior researchers or authors from less-established institutions"}, {"code": "6D", "text": "Engagement with predatory conferences"}]}, {"n": 7, "name": "Solicitation Email Content", "items": [{"code": "7A", "text": "Aggressive solicitation with pressure to submit quickly"}, {"code": "7B", "text": "Excessive flattery or overly formal praise"}, {"code": "7C", "text": "Explicit claim that the email is not spam"}, {"code": "7D", "text": "Missing contact information"}, {"code": "7E", "text": "Non-personalised or inaccurate email invitations"}, {"code": "7F", "text": "References the researcher’s previous work to personalise a submission invitation that is unrelated to their field of expertise"}, {"code": "7G", "text": "Claims that all types of manuscripts will be published as peer-reviewed articles"}]}, {"n": 8, "name": "Editors and Editorial Board", "items": [{"code": "8A", "text": "Misrepresentation of editorial board identities or membership without consent"}, {"code": "8B", "text": "Editorial board members with apparently inappropriate expertise or unverifiable academic records"}, {"code": "8C", "text": "Missing, incomplete, or unclear editorial board"}, {"code": "8D", "text": "Reuse of the same editorial board members across multiple journals"}, {"code": "8E", "text": "Requests for payment to join the editorial board"}, {"code": "8F", "text": "Limited editorial/journal staff capacity, including very small or poorly diverse boards"}]}, {"n": 9, "name": "Indexing Status, Metrics, and Discoverability", "items": [{"code": "9A", "text": "Use of fake, misleading, or nonexistent journal metrics, such as a fabricated impact factor"}, {"code": "9B", "text": "False or misleading claims of being indexed or listed in recognised databases or directories, such as Web of Science, Scopus, or DOAJ"}, {"code": "9C", "text": "Delisting from recognised databases or directories, such as Web of Science, Scopus, or DOAJ"}, {"code": "9D", "text": "Fake or cloned ISSNs"}, {"code": "9E", "text": "False or unclear open-access claims"}, {"code": "9F", "text": "Lack of reliable evidence of long-term digital archiving or preservation"}, {"code": "9G", "text": "False publication dates"}, {"code": "9H", "text": "No persistent object identifier allotted to articles"}]}, {"n": 10, "name": "Publication Policies", "items": [{"code": "10A", "text": "Lack of a plagiarism or duplicate-publication policy and lack of routine similarity screening"}, {"code": "10B", "text": "Lack of policies on authorship, corrections, retractions, or other publication ethics issues"}, {"code": "10C", "text": "Lack of a transparent copyright policy"}, {"code": "10D", "text": "Not a member of COPE"}, {"code": "10E", "text": "Lack of evidence that the journal belongs to COPE or follows COPE’s policies and best-practice recommendations"}, {"code": "10F", "text": "Publication without the authors’ consent"}, {"code": "10G", "text": "Copyright violations, including plagiarised images or text"}]}, {"n": 11, "name": "Journal Identity and Contact Information", "items": [{"code": "11A", "text": "Unfamiliar or questionable publisher name"}, {"code": "11B", "text": "Misleading addresses, unreachable phone numbers, or reliance on informal contact methods such as WhatsApp"}, {"code": "11C", "text": "A misleading journal title that misrepresents the journal’s identity, affiliation, scope, location, or status"}, {"code": "11D", "text": "Branding-driven naming practices, such as “global” or “world,” or frequent name changes to follow trends"}, {"code": "11E", "text": "False or misleading association with legitimate journals, publishers, or organisations"}]}, {"n": 12, "name": "Website and Article Presentation", "items": [{"code": "12A", "text": "Obvious grammatical or language errors on the website"}, {"code": "12B", "text": "Distorted or low-quality images"}, {"code": "12C", "text": "High frequency of non-academic advertisements on the webpage"}, {"code": "12D", "text": "Missing article-preparation or author instructions"}, {"code": "12E", "text": "Counterfeit, cloned, or hijacked journal identity"}, {"code": "12F", "text": "Poor maintenance, outdated content, or technical problems such as broken links"}, {"code": "12G", "text": "Poor editorial and production quality in published articles, including inconsistent style, formatting, citations, page numbering, or affiliations"}, {"code": "12H", "text": "Mismatched or absurd journal website domain"}]}], "countries": [{"code": "AFG", "name": "Afghanistan"}, {"code": "ALB", "name": "Albania"}, {"code": "DZA", "name": "Algeria"}, {"code": "AND", "name": "Andorra"}, {"code": "AGO", "name": "Angola"}, {"code": "ATG", "name": "Antigua and Barbuda"}, {"code": "ARG", "name": "Argentina"}, {"code": "ARM", "name": "Armenia"}, {"code": "AUS", "name": "Australia"}, {"code": "AUT", "name": "Austria"}, {"code": "AZE", "name": "Azerbaijan"}, {"code": "BHS", "name": "Bahamas"}, {"code": "BHR", "name": "Bahrain"}, {"code": "BGD", "name": "Bangladesh"}, {"code": "BRB", "name": "Barbados"}, {"code": "BLR", "name": "Belarus"}, {"code": "BEL", "name": "Belgium"}, {"code": "BLZ", "name": "Belize"}, {"code": "BEN", "name": "Benin"}, {"code": "BTN", "name": "Bhutan"}, {"code": "BOL", "name": "Bolivia"}, {"code": "BIH", "name": "Bosnia and Herzegovina"}, {"code": "BWA", "name": "Botswana"}, {"code": "BRA", "name": "Brazil"}, {"code": "BRN", "name": "Brunei Darussalam"}, {"code": "BGR", "name": "Bulgaria"}, {"code": "BFA", "name": "Burkina Faso"}, {"code": "BDI", "name": "Burundi"}, {"code": "CPV", "name": "Cabo Verde"}, {"code": "KHM", "name": "Cambodia"}, {"code": "CMR", "name": "Cameroon"}, {"code": "CAN", "name": "Canada"}, {"code": "CAF", "name": "Central African Republic"}, {"code": "TCD", "name": "Chad"}, {"code": "CHL", "name": "Chile"}, {"code": "CHN", "name": "China"}, {"code": "COL", "name": "Colombia"}, {"code": "COM", "name": "Comoros"}, {"code": "COG", "name": "Congo"}, {"code": "CRI", "name": "Costa Rica"}, {"code": "HRV", "name": "Croatia"}, {"code": "CUB", "name": "Cuba"}, {"code": "CYP", "name": "Cyprus"}, {"code": "CZE", "name": "Czechia"}, {"code": "CIV", "name": "Côte d’Ivoire"}, {"code": "COD", "name": "Democratic Republic of the Congo"}, {"code": "DNK", "name": "Denmark"}, {"code": "DJI", "name": "Djibouti"}, {"code": "DMA", "name": "Dominica"}, {"code": "DOM", "name": "Dominican Republic"}, {"code": "ECU", "name": "Ecuador"}, {"code": "EGY", "name": "Egypt"}, {"code": "SLV", "name": "El Salvador"}, {"code": "GNQ", "name": "Equatorial Guinea"}, {"code": "ERI", "name": "Eritrea"}, {"code": "EST", "name": "Estonia"}, {"code": "SWZ", "name": "Eswatini"}, {"code": "ETH", "name": "Ethiopia"}, {"code": "FJI", "name": "Fiji"}, {"code": "FIN", "name": "Finland"}, {"code": "FRA", "name": "France"}, {"code": "GAB", "name": "Gabon"}, {"code": "GMB", "name": "Gambia"}, {"code": "GEO", "name": "Georgia"}, {"code": "DEU", "name": "Germany"}, {"code": "GHA", "name": "Ghana"}, {"code": "GRC", "name": "Greece"}, {"code": "GRD", "name": "Grenada"}, {"code": "GTM", "name": "Guatemala"}, {"code": "GIN", "name": "Guinea"}, {"code": "GNB", "name": "Guinea-Bissau"}, {"code": "GUY", "name": "Guyana"}, {"code": "HTI", "name": "Haiti"}, {"code": "VAT", "name": "Holy See"}, {"code": "HND", "name": "Honduras"}, {"code": "HUN", "name": "Hungary"}, {"code": "ISL", "name": "Iceland"}, {"code": "IND", "name": "India"}, {"code": "IDN", "name": "Indonesia"}, {"code": "IRN", "name": "Iran"}, {"code": "IRQ", "name": "Iraq"}, {"code": "IRL", "name": "Ireland"}, {"code": "ISR", "name": "Israel"}, {"code": "ITA", "name": "Italy"}, {"code": "JAM", "name": "Jamaica"}, {"code": "JPN", "name": "Japan"}, {"code": "JOR", "name": "Jordan"}, {"code": "KAZ", "name": "Kazakhstan"}, {"code": "KEN", "name": "Kenya"}, {"code": "KIR", "name": "Kiribati"}, {"code": "KWT", "name": "Kuwait"}, {"code": "KGZ", "name": "Kyrgyzstan"}, {"code": "LAO", "name": "Laos"}, {"code": "LVA", "name": "Latvia"}, {"code": "LBN", "name": "Lebanon"}, {"code": "LSO", "name": "Lesotho"}, {"code": "LBR", "name": "Liberia"}, {"code": "LBY", "name": "Libya"}, {"code": "LIE", "name": "Liechtenstein"}, {"code": "LTU", "name": "Lithuania"}, {"code": "LUX", "name": "Luxembourg"}, {"code": "MDG", "name": "Madagascar"}, {"code": "MWI", "name": "Malawi"}, {"code": "MYS", "name": "Malaysia"}, {"code": "MDV", "name": "Maldives"}, {"code": "MLI", "name": "Mali"}, {"code": "MLT", "name": "Malta"}, {"code": "MHL", "name": "Marshall Islands"}, {"code": "MRT", "name": "Mauritania"}, {"code": "MUS", "name": "Mauritius"}, {"code": "MEX", "name": "Mexico"}, {"code": "FSM", "name": "Micronesia"}, {"code": "MDA", "name": "Moldova"}, {"code": "MCO", "name": "Monaco"}, {"code": "MNG", "name": "Mongolia"}, {"code": "MNE", "name": "Montenegro"}, {"code": "MAR", "name": "Morocco"}, {"code": "MOZ", "name": "Mozambique"}, {"code": "MMR", "name": "Myanmar"}, {"code": "NAM", "name": "Namibia"}, {"code": "NRU", "name": "Nauru"}, {"code": "NPL", "name": "Nepal"}, {"code": "NLD", "name": "Netherlands"}, {"code": "NZL", "name": "New Zealand"}, {"code": "NIC", "name": "Nicaragua"}, {"code": "NER", "name": "Niger"}, {"code": "NGA", "name": "Nigeria"}, {"code": "PRK", "name": "North Korea"}, {"code": "MKD", "name": "North Macedonia"}, {"code": "NOR", "name": "Norway"}, {"code": "OMN", "name": "Oman"}, {"code": "PAK", "name": "Pakistan"}, {"code": "PLW", "name": "Palau"}, {"code": "PSE", "name": "Palestine"}, {"code": "PAN", "name": "Panama"}, {"code": "PNG", "name": "Papua New Guinea"}, {"code": "PRY", "name": "Paraguay"}, {"code": "PER", "name": "Peru"}, {"code": "PHL", "name": "Philippines"}, {"code": "POL", "name": "Poland"}, {"code": "PRT", "name": "Portugal"}, {"code": "QAT", "name": "Qatar"}, {"code": "ROU", "name": "Romania"}, {"code": "RUS", "name": "Russian Federation"}, {"code": "RWA", "name": "Rwanda"}, {"code": "KNA", "name": "Saint Kitts and Nevis"}, {"code": "LCA", "name": "Saint Lucia"}, {"code": "VCT", "name": "Saint Vincent and the Grenadines"}, {"code": "WSM", "name": "Samoa"}, {"code": "SMR", "name": "San Marino"}, {"code": "SAU", "name": "Saudi Arabia"}, {"code": "SEN", "name": "Senegal"}, {"code": "SRB", "name": "Serbia"}, {"code": "SYC", "name": "Seychelles"}, {"code": "SLE", "name": "Sierra Leone"}, {"code": "SGP", "name": "Singapore"}, {"code": "SVK", "name": "Slovakia"}, {"code": "SVN", "name": "Slovenia"}, {"code": "SLB", "name": "Solomon Islands"}, {"code": "SOM", "name": "Somalia"}, {"code": "ZAF", "name": "South Africa"}, {"code": "KOR", "name": "South Korea"}, {"code": "SSD", "name": "South Sudan"}, {"code": "ESP", "name": "Spain"}, {"code": "LKA", "name": "Sri Lanka"}, {"code": "SDN", "name": "Sudan"}, {"code": "SUR", "name": "Suriname"}, {"code": "SWE", "name": "Sweden"}, {"code": "CHE", "name": "Switzerland"}, {"code": "SYR", "name": "Syrian Arab Republic"}, {"code": "STP", "name": "São Tomé and Príncipe"}, {"code": "TJK", "name": "Tajikistan"}, {"code": "TZA", "name": "Tanzania"}, {"code": "THA", "name": "Thailand"}, {"code": "TLS", "name": "Timor-Leste"}, {"code": "TGO", "name": "Togo"}, {"code": "TON", "name": "Tonga"}, {"code": "TTO", "name": "Trinidad and Tobago"}, {"code": "TUN", "name": "Tunisia"}, {"code": "TKM", "name": "Turkmenistan"}, {"code": "TUV", "name": "Tuvalu"}, {"code": "TUR", "name": "Türkiye"}, {"code": "UGA", "name": "Uganda"}, {"code": "UKR", "name": "Ukraine"}, {"code": "ARE", "name": "United Arab Emirates"}, {"code": "GBR", "name": "United Kingdom"}, {"code": "USA", "name": "United States of America"}, {"code": "URY", "name": "Uruguay"}, {"code": "UZB", "name": "Uzbekistan"}, {"code": "VUT", "name": "Vanuatu"}, {"code": "VEN", "name": "Venezuela"}, {"code": "VNM", "name": "Vietnam"}, {"code": "YEM", "name": "Yemen"}, {"code": "ZMB", "name": "Zambia"}, {"code": "ZWE", "name": "Zimbabwe"}, {"code": "OTH", "name": "Other territory/jurisdiction"}, {"code": "PNA", "name": "Prefer not to answer"}], "columns": ["submission_id", "received_at_utc", "survey_version", "panelist_code", "consent", "consent_at_utc", "submitted_at_utc", "age_group", "gender", "country_code", "country", "primary_role", "primary_role_other", "sectors", "sector_other", "discipline", "discipline_other", "experience", "Q1_1A", "Q1_1B", "Q1_1C", "Q1_1D", "Q1_2A", "Q1_2B", "Q1_2C", "Q1_3A", "Q1_3B", "Q1_3C", "Q1_3D", "Q1_4A", "Q1_4B", "Q1_4C", "Q1_4D", "Q1_4E", "Q1_5A", "Q1_5B", "Q1_5C", "Q1_5D", "Q1_6A", "Q1_6B", "Q1_6C", "Q1_6D", "Q1_7A", "Q1_7B", "Q1_7C", "Q1_7D", "Q1_7E", "Q1_7F", "Q1_7G", "Q1_8A", "Q1_8B", "Q1_8C", "Q1_8D", "Q1_8E", "Q1_8F", "Q1_9A", "Q1_9B", "Q1_9C", "Q1_9D", "Q1_9E", "Q1_9F", "Q1_9G", "Q1_9H", "Q1_10A", "Q1_10B", "Q1_10C", "Q1_10D", "Q1_10E", "Q1_10F", "Q1_10G", "Q1_11A", "Q1_11B", "Q1_11C", "Q1_11D", "Q1_11E", "Q1_12A", "Q1_12B", "Q1_12C", "Q1_12D", "Q1_12E", "Q1_12F", "Q1_12G", "Q1_12H", "additional_characteristics", "Q2_1A", "Q2_1B", "Q2_1C", "Q2_1D", "Q2_2A", "Q2_2B", "Q2_2C", "Q2_3A", "Q2_3B", "Q2_3C", "Q2_3D", "Q2_4A", "Q2_4B", "Q2_4C", "Q2_4D", "Q2_4E", "Q2_5A", "Q2_5B", "Q2_5C", "Q2_5D", "Q2_6A", "Q2_6B", "Q2_6C", "Q2_6D", "Q2_7A", "Q2_7B", "Q2_7C", "Q2_7D", "Q2_7E", "Q2_7F", "Q2_7G", "Q2_8A", "Q2_8B", "Q2_8C", "Q2_8D", "Q2_8E", "Q2_8F", "Q2_9A", "Q2_9B", "Q2_9C", "Q2_9D", "Q2_9E", "Q2_9F", "Q2_9G", "Q2_9H", "Q2_10A", "Q2_10B", "Q2_10C", "Q2_10D", "Q2_10E", "Q2_10F", "Q2_10G", "Q2_11A", "Q2_11B", "Q2_11C", "Q2_11D", "Q2_11E", "Q2_12A", "Q2_12B", "Q2_12C", "Q2_12D", "Q2_12E", "Q2_12F", "Q2_12G", "Q2_12H"], "serverColumns": ["received_at_utc"], "codes": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "3A", "3B", "3C", "3D", "4A", "4B", "4C", "4D", "4E", "5A", "5B", "5C", "5D", "6A", "6B", "6C", "6D", "7A", "7B", "7C", "7D", "7E", "7F", "7G", "8A", "8B", "8C", "8D", "8E", "8F", "9A", "9B", "9C", "9D", "9E", "9F", "9G", "9H", "10A", "10B", "10C", "10D", "10E", "10F", "10G", "11A", "11B", "11C", "11D", "11E", "12A", "12B", "12C", "12D", "12E", "12F", "12G", "12H"]};
+
+/* ---------------- content ---------------- */
+const SCALE = [
+  {v:1,t:"Not important at all"},{v:2,t:"Of little importance"},{v:3,t:"Of moderate importance"},
+  {v:4,t:"Very important"},{v:5,t:"Extremely important"}
+];
+const LOGO_UM = "data:image/png;base64,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";
+const PIS = [
+  {h:"Purpose of the study",p:["You are invited to participate in a Delphi study that aims to achieve expert consensus on the most important characteristics for identifying predatory journals. The results will be used to develop a checklist that may support researchers, editors, librarians, institutions, and policymakers when assessing potentially predatory journals. The checklist that will be developed through this study will undergo further validation in future research to evaluate its performance and applicability."]},
+  {h:"Who is conducting this study",p:["This research study is part of a PhD research project at Maastricht University, in collaboration with BMJ. The study is being conducted by Amani Abu-Shaheen from the Department of Epidemiology, Care and Public Health Research Institute, Maastricht University, The Netherlands, and the Research Center, King Fahad Medical City, Riyadh Second Health Cluster, Riyadh, Saudi Arabia, under the supervision of Prof. Lex Bouter, Dr. Sara Schroter, and Prof. Maurice P. Zeegers."]},
+  {h:"What participation involves",p:["The study will include 2 Delphi rounds. In each round, you will be asked to complete an online survey assessing proposed characteristics of predatory journals."]},
+  {h:"Voluntary participation and withdrawal",p:["Participation is entirely voluntary. You may decline to participate or stop completing the questionnaire at any time without providing a reason. Once your responses have been anonymized and combined with those of other participants, it will no longer be possible to identify and remove them."]},
+  {h:"Benefits and risks",p:["You will not receive any direct personal benefit. However, your expertise will contribute to developing a practical and reliable checklist for identifying predatory journals."]},
+  {h:"Privacy and confidentiality",p:["Survey responses will be received and managed by Amani Abu-Shaheen. Responses will be held in coded form and reported only in aggregate. Individual ratings will not be attributed to named panelists at any stage of the study. No personally identifiable information should be entered in the open-text fields.","All information will be handled confidentially and stored securely in accordance with Maastricht University\u2019s applicable data-protection and research-data-management requirements. Study findings will be reported only in anonymized or aggregated form. Anonymized quotations from open-text responses may be included in publications or reports, but no information that could reasonably identify an individual participant will be disclosed."]},
+  {h:"Ethics approval",p:["The study has been approved by the Research Ethics Committee at Riyadh Second Health Cluster, Riyadh, Saudi Arabia (reference number 26-610)."]},
+  {h:"Financial aspects",p:["There is no cost associated with participating in this study. Participants will not receive payment, reimbursement, or any other financial compensation for their participation."]}
+];
+const PROTOCOL = {"sections": [{"h": "Introduction", "p": ["Predatory journals expose the scientific community to a serious threat, because they fail to adhere to accepted scholarly publishing standards (1,2). They have been defined as “entities that prioritize self-interest at the expense of scholarship and are characterized by false or misleading information, deviation from best editorial and publication practices, a lack of transparency, and/or the use of aggressive and indiscriminate solicitation practices” (3). Despite all the efforts and scholarly attention to predatory publishing, such as the development of blacklists, training programs for researchers, strengthened indexing procedures, and institutional publication policies, it continues to expand and has been reported across several countries and disciplines (4). The efforts to identify predatory journals have generated many detection tools and checklists. However, evidence on their diagnostic accuracy is often lacking, limiting reliable guidance available to authors, institutions and funders. A systematic review published in 2020 identified 93 checklists for detecting predatory journals, but less than 3% were judged to be evidence-based, only 4% were developed from an empirical study, and only 2% weighted their items (5). Additionally, only one checklist provides a cut-off value for the number of characteristics that need to be present to label a journal as potential predatory. Whereas other checklists lacked qualitative and quantitative guidance that would help users to determine if a journal is predatory (5).", "Among the three evidence-based checklists, there is substantial diversity in their methods for detection of predatory journals (6-8). For instance, Hansoti et al. used an unvalidated approach derived from Beall’s criteria, but their classification of journals as either legitimate or potentially predatory was limited to the field of emergency medicine (6). Another study conducted by Dadkhah and Bianciardi proposed a weighted predatory rate scoring system based on 14 criteria grouped in four domains, including editorial members’ criteria, review process and publishing, announcements, and open access policies and publication charges. However, this scoring system was tested only on a small case series and was never subjected to large-scale validation (7). A different orientation is found in the work of Mouton and Valentine, who were less concerned with producing a general diagnostic instrument than with estimating the extent of predatory publishing within a particular country (8). Using a bibliometric strategy, they reassessed South African output appearing in predatory journals. They used Beall’s blog posts on specific journals, scholarly articles referring to particular journals or publishers, and their own case-by-case assessment to distinguish weak from strong evidence of predatory characteristics (8).", "The field still lacks a rigorously validated, discipline-independent instrument for identifying predatory journals, as current tools are either confined to a single specialty, constrained by small and unvalidated samples, or designed to measure impact within a specific national context rather than to serve as a generalizable diagnostic standard. Building on this body of work, our <a href=\"https://doi.org/10.31222/osf.io/ypd8m_v1\" target=\"_blank\" rel=\"noopener\">previous scoping review</a> provided an updated, multidisciplinary synthesis of the characteristics of predatory journals (9). However, these characteristics require further refinement and validation. Therefore, our current study aims to refine the previously identified characteristics into a consensus-based checklist for identifying predatory journals. This paper describes the development of the checklist, while subsequent research will focus on its validation and evaluation of performance in real-world settings."]}, {"h": "Methods", "sub": [{"h": "Study design", "p": ["A modified Delphi study will be conducted in multiple rounds for voting based on the characteristics identified in our scoping review (9). The study will be conducted entirely online to enable international participation across disciplines and stakeholder groups."]}, {"h": "Steering Committee members", "p": ["The Steering Committee will consist of the study team members (AKA, LB, SS, MPZ). The Steering Committee will be responsible for the Delphi process and the development and the validation of the checklist."]}, {"h": "Predatory journal characteristics", "p": ["Our scoping review initially identified 172 characteristics of predatory journals, which were then refined and grouped through two rounds of online surveys conducted by the Steering Committee, resulting in 65 characteristics. These characteristics will be submitted to the Delphi panel for further evaluation and consensus voting to refine these characteristics into a consensus checklist for identifying predatory journals."]}, {"h": "Delphi panel composition and recruitment", "p": ["There are no generally agreed standards for determining panel size in Delphi studies. Thus, this study aimed to recruit and complete the process with at least 50 experts, guided by the need for adequate representation across stakeholder groups. Approximately 200 potential participants will be invited by email to participate in the Delphi survey, with the aim of recruiting approximately 60–70 experts to complete the first round. This recruitment target assumes an initial response rate of approximately 30%–35%, consistent with a recent multi-country modified Delphi study that reported a Round 1 response rate of 35% (10). An attrition rate of approximately 20% due to withdrawals or incomplete participation across subsequent rounds is anticipated. This estimate is supported by a recent scoping review of 287 Delphi studies in the health sciences, which found that, the final-round panel was, on average, 19% smaller than the first-round panel (11). Based on these assumptions, approximately 50 participants are expected to complete the final Delphi round.", "Participants will be selected using purposive maximum-variation sampling to ensure diversity in relevant expertise, professional background, and geographic region to capture a wide range of perspectives. The Delphi panel will include a diverse group of stakeholders, including journal editors and publishers; librarians/information specialists; experts in scholarly communication, publication ethics, or research integrity; researchers who have published articles on predatory publishing, research integrity or publication ethics; funders; policymakers; and other researchers including early-career researchers. Participants will be recruited and identified through the Steering Committee’s networks of many research integrity and publishing organizations, authors of relevant publications, and individuals in leadership roles within journals, libraries, research integrity offices, and scholarly publishing organizations. Recruitment and invitations will be monitored to balance the stakeholder role and diversity. Panelists will be invited by email, and two reminder emails will be sent to those who do not respond."]}, {"h": "Delphi Process", "p": ["A modified two-round Delphi process will be conducted anonymously using an online survey in accordance with the RAND methodological guidance for conducting and critically appraising Delphi studies (12), Jorm’s practical guide to establishing expert consensus using the Delphi method (13) and a previous Delphi study (14). The Delphi survey will be developed in English and piloted by AKA by sending the draft survey to 10 researchers to assess the clarity of the questions and instructions. Their feedback will be reviewed by the Steering Committee and used to revise the survey before administration. Pilot responses will not be included in the Delphi analysis. Panelists will receive an invitational e-mail that includes links to the full study protocol (https://zenodo.org/records/22936128) and the first-round survey (Appendix 1). The survey starts with a brief consent form with links to the study protocol and the participant information sheet (Appendix 2) and a check box to give consent. Only if panelists tick the consent box, can they proceed to the survey."]}, {"h": "Round one survey", "p": ["For all 65 characteristics, panelists will be asked to answer one closed question: how important the characteristic is for identifying a predatory journal. A 5-point importance scale will be used: 1 = not important at all, 2 = a little important, 3 = moderately important, 4 = very important, and 5 = extremely important. We will interpret scores of 1–2 to indicate that the characteristic is not important for inclusion, a score of 3 to indicate moderate importance or uncertainty, and scores of 4–5 to indicate that the characteristic is important for inclusion in the checklist. Beside each of the 65 characteristics, participants will have the option to suggest rewording of the characteristic if they deem it appropriate. Consensus for inclusion of a characteristic will require ≥75% of panelists rating a characteristic as 4 or 5 on the importance scale, while consensus for exclusion will require ≥75% rating it as 1 or 2. Characteristics meeting neither threshold will be considered unresolved and carried forward to the next round. A 75% cutoff was selected because it was the median threshold reported by Diamond et al (15). At the end of the survey there will also be an open-text item for participants to propose additional characteristics. Also, the panelists’ socio-demographic and professional characteristics will be collected."]}, {"h": "Round two survey", "p": ["All panelists will be invited to participate in the Round 2 survey (Appendix 3). A link to the report from Round 1 will be provided on the first page of the Round 2 survey. The following approach follows methodological models such as ACCORD and DELPHISTAR (16,17). Panelists will review and rate the importance of the revised, unresolved and new characteristics using the same importance scale as in round one, and referring to the results provided from round one. Characteristics that reach the 75% consensus threshold for inclusion will be added to the final checklist. All other items of round 2 will be discarded."]}]}, {"h": "Ethical considerations", "p": ["The study will be registered on Zenodo, where the protocol, participant information sheet, appendices, and round reports will also be made openly available. The study will be reviewed by the Research Ethics Committee at Riyadh Second Health Cluster, Riyadh, Saudi Arabia."]}, {"h": "Data availability", "p": ["The study protocol, participant information sheet (Appendix 2), surveys (Appendices 1 and 3) and reports of the findings from each round will be openly available in the Zenodo."]}, {"h": "Funding", "p": ["Our research received no specific grant from any funding agency in the public, commercial, or not-for-profit sectors. It is part of AKA’s self-funded PhD project registered at Maastricht University, the Netherlands, in collaboration with BMJ Publishing Group, United Kingdom."]}, {"h": "Competing interests statement", "p": ["SS is a full-time employee of BMJ Publishing Group. All other authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this review.", "This research is part of an ongoing PhD collaboration between BMJ Publishing Group and the team Meta-Research at Maastricht University [UM] on the responsible conduct of publishing scientific research. BMJ Publishing Group is a wholly owned subsidiary of the British Medical Association. UM is a public legal entity in the Netherlands. This study is part of Amani Abu-Shaheen’s self-funded BMJ/UM PhD. No exchange of funds has taken place for this research project. All authors express their own opinions and not necessarily that of their employers."]}], "references": ["Grudniewicz A, Moher D, Cobey KD, Bryson GL, Cukier S, Allen K, et al. Predatory journals: no definition, no defence. Nature. 2019;576(7786):210–12.", "Cobey KD, Lalu MM, Skidmore B, Ahmadzai N, Grudniewicz A, Moher D. What is a predatory journal? A scoping review. F1000Res. 2018; 7:1001.", "Cukier S, Lalu M, Bryson GL, Cobey KD, Grudniewicz A, Moher D. Defining predatory journals and responding to the threat they pose: a modified Delphi consensus process. BMJ Open. 2020;10(2):e035561.", "Martinino A, Campagnoli G, Dallavalle S, Soto A, Pouwels S, Smeenk F. Investigating country-specific perceptions of predatory journals and their impact on scholarly integrity: a systematic review. Cureus. 2024;16(7):e64674.", "Cukier S, Helal L, Rice DB, Pupkaite J, Ahmadzai N, Wilson M, et al. Checklists to detect potential predatory biomedical journals: a systematic review. BMC Medicine. 2020; 18:104. doi:10.1186/s12916-020-01566-1.", "Hansoti B, Langdorf MI, Murphy LS. Discriminating between legitimate and predatory open access journals: report from the International Federation for Emergency Medicine Research Committee. West J Emerg Med. 2016;17(5):497–507.", "Dadkhah M, Bianciardi G. Ranking predatory journals: solve the problem instead of removing it. Adv Pharm Bull. 2016;6(1):1–4.", "Mouton J, Valentine A. The extent of South African authored articles in predatory journals. S Afr J Sci. 2017;113(7/8):1–9.", "Abushaheen, A. K., Sara Schroter, Maurice Zeegers, Helen Macdonald, M. L. Rethlefsen, Will White, Lauren Adkins, and Lex Bouter. \"Characteristics and Practices of Predatory Journals and Publishers: Protocol for A Scoping Review.\" (2025). https://doi.org/10.31222/osf.io/ypd8m_v1", "Namyalo PK, Wodnik BK, Michaelides O, Kane S, Essue B, Di Ruggiero E. Identifying implementation science research and policy priorities to advance universal health coverage: a multi-country modified Delphi study. BMJ Glob Health. 2025;10(8). doi:10.1136/bmjgh-2024-018562.", "Schifano J, Niederberger M. How Delphi studies in the health sciences find consensus: a scoping review. Systematic Reviews. 2025 Jan 14;14(1):14.", "Khodyakov D, Grant S, Kroger J, Bauman M. RAND methodological guidance for conducting and critically appraising Delphi panels. California, USA: Rand; 2023 Jan 28.", "Jorm A. Using the Delphi method to establish expert consensus: A practical guide. Springer Nature; 2025.", "Labib K, Roje R, Bouter L, Widdershoven G, Evans N, Marušić A, Mokkink L, Tijdink J. Important topics for fostering research integrity by research performing and research funding organizations: A Delphi consensus study. Science and Engineering Ethics. 2021 Aug;27(4):47.", "Diamond IR, Grant RC, Feldman BM, Pencharz PB, Ling SC, Moore AM, et al. Defining consensus: a systematic review recommends methodologic criteria for reporting of Delphi studies. J Clin Epidemiol. 2014;67(4):401–409. doi:10.1016/j.jclinepi.2013.12.002.", "Gattrell WT, Logullo P, van Zuuren EJ, Price A, Hughes EL, Blazey P, Winchester CC, Tovey D, Goldman K, Hungin AP, Harrison N. ACCORD (ACcurate COnsensus Reporting Document): A reporting guideline for consensus methods in biomedicine developed via a modified Delphi. PLoS Medicine. 2024 Jan 23;21(1):e1004326.", "Niederberger M, Schifano J, Deckert S, Hirt J, Homberg A, Köberich S, Kuhn R, Rommel A, Sonnberger M, DEWISS network. Delphi studies in social and health sciences—Recommendations for an interdisciplinary standardized reporting (DELPHISTAR). Results of a Delphi study. PLoS One. 2024 Aug 26;19(8):e0304651."]};
+const CONFIRMS = [
+  "You have read and understood the information provided.",
+  "You understand that participation is voluntary and that you may withdraw at any time.",
+  "You consent to the collection, analysis, and anonymized reporting of your responses.",
+  "You agree to participate in this study."
+];
+const OPT = {
+  age_group:["Under 30","30\u201339","40\u201349","50\u201359","60 or older","Prefer not to answer"],
+  gender:["Man","Woman","Non-binary or gender diverse","Prefer not to disclose"],
+  primary_role:["Journal editor/publisher","Scholarly communication, publication ethics, or research integrity researcher","Librarian/information specialist","Research integrity or publication ethics specialist","Researcher with expertise in predatory publishing","Funder/policymaker/regulator","Early-career researcher","Other researcher/author/reviewer","Other"],
+  sectors:["University/research institution","Journal/publisher","Library/information service","Healthcare organization","Government/funder/regulator","Professional association/NGO","Private/independent sector","Other"],
+  discipline:["Health/biomedical sciences","Natural sciences","Engineering/computing","Social sciences","Humanities/arts","Library/information science","Multidisciplinary","Other"],
+  experience:["0\u20134 years","5\u20139 years","10\u201314 years","15\u201319 years","20 years or more","Prefer not to answer"]
+};
+const DEMO_LABEL = {age_group:"age group",gender:"gender",country_code:"country of professional practice",primary_role:"primary role",sectors:"professional sector",discipline:"main disciplinary field",experience:"years of experience"};
+
+/* ---------------- state ---------------- */
+const STEP = {CONSENT:0,CAT:1,ADD:13,DEMO:14,REVIEW:15,DONE:16,DECLINED:17};
+const NCAT = SPEC.cats.length;      // 12
+const TOTAL = SPEC.codes.length;    // 65
+const ALLITEMS = SPEC.cats.flatMap(c => c.items.map(i => Object.assign({cat:c.n}, i)));
+const params = new URLSearchParams(location.search);
+const PID = (params.get("pid") || params.get("code") || "").replace(/[^A-Za-z0-9_-]/g,"").slice(0,40);
+
+const store = (() => {
+  try { const k="__t"; localStorage.setItem(k,k); localStorage.removeItem(k); return {ls:localStorage, ok:true}; }
+  catch(e){ const m={}; return {ls:{getItem:k=>(k in m?m[k]:null),setItem:(k,v)=>{m[k]=String(v)},removeItem:k=>{delete m[k]}}, ok:false}; }
+})();
+
+const blank = () => ({step:STEP.CONSENT, sid:"", consent:"", consentAt:"", q1:{}, q2:{}, additional:"",
+  demo:{age_group:"",gender:"",country_code:"",primary_role:"",primary_role_other:"",sectors:[],sector_other:"",discipline:"",discipline_other:"",experience:""}});
+let S = blank();
+let sending = false, lastPayload = null;
+
+const $ = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() :
+  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => { const r=Math.random()*16|0; return (c==="x"?r:(r&3|8)).toString(16); });
+
+function save(){ if(S.consent==="Agree to participate" && S.step<STEP.DONE){ try{ store.ls.setItem(CONFIG.storageKey, JSON.stringify(S)); }catch(e){} } }
+function loadDraft(){ try{ const d=JSON.parse(store.ls.getItem(CONFIG.storageKey)||"null"); return d && d.consent==="Agree to participate" ? d : null; }catch(e){ return null; } }
+function clearDraft(){ try{ store.ls.removeItem(CONFIG.storageKey); }catch(e){} }
+
+/* ---------------- derived ---------------- */
+const catN = ci => SPEC.cats[ci];
+const answeredIn = ci => catN(ci).items.filter(i => S.q1[i.code]).length;
+const rated = () => ALLITEMS.filter(i => S.q1[i.code]).length;
+function demoMissing(){
+  const d=S.demo, m=[];
+  if(!d.age_group) m.push("age_group");
+  if(!d.gender) m.push("gender");
+  if(!d.country_code) m.push("country_code");
+  if(!d.primary_role || (d.primary_role==="Other" && !d.primary_role_other.trim())) m.push("primary_role");
+  if(!d.sectors.length || (d.sectors.includes("Other") && !d.sector_other.trim())) m.push("sectors");
+  if(!d.discipline || (d.discipline==="Other" && !d.discipline_other.trim())) m.push("discipline");
+  if(!d.experience) m.push("experience");
+  return m;
+}
+const stepOfCat = ci => STEP.CAT + ci;
+
+/* ---------------- chrome (rail + progress) ---------------- */
+function railHtml(){
+  const cur = S.step;
+  let h = `<div class="meter"><b>${rated()}</b> of ${TOTAL} characteristics rated<div class="bar"><i style="width:${Math.round(rated()/TOTAL*100)}%"></i></div></div><ol>`;
+  SPEC.cats.forEach((c,ci) => {
+    const a=answeredIn(ci), n=c.items.length;
+    const cls = (a===n?" done":a>0?" part":"") + (cur===stepOfCat(ci)?" cur":"");
+    h += `<li><button type="button" class="ri${cls}" data-go="${stepOfCat(ci)}"${cur===stepOfCat(ci)?' aria-current="step"':""}><span class="mk">${a===n?"\u2713":c.n}</span><span class="lbl">${esc(c.name)}</span><span class="cnt">${a}/${n}</span></button></li>`;
+  });
+  h += `</ol><hr><ol>`;
+  const dm = 7 - demoMissing().length;
+  const extra = [
+    [STEP.ADD,"Additional characteristics",S.additional.trim()?"\u2713":"",S.additional.trim()?" done":""],
+    [STEP.DEMO,"About you",`${dm}/7`,dm===7?" done":dm>0?" part":""],
+    [STEP.REVIEW,"Review and submit","",""]
+  ];
+  extra.forEach(([st,lbl,cnt,cl]) => {
+    h += `<li><button type="button" class="ri${cl}${cur===st?" cur":""}" data-go="${st}"${cur===st?' aria-current="step"':""}><span class="mk">${cl.includes("done")?"\u2713":""}</span><span class="lbl">${lbl}</span><span class="cnt">${cnt}</span></button></li>`;
+  });
+  return h + "</ol>";
+}
+function updateChrome(){
+  const inSurvey = S.step>=STEP.CAT && S.step<=STEP.REVIEW;
+  const rail=$("#rail"), mrail=$("#mrail"), shell=$("#shell");
+  shell.classList.toggle("with-rail", inSurvey);
+  rail.hidden = !inSurvey; mrail.hidden = !inSurvey;
+  if(!inSurvey) return;
+  const html = railHtml();
+  rail.innerHTML = html;
+  $("#mbody").innerHTML = html.replace(/<div class="meter">.*?<\/div><\/div>/,"");
+  const where = S.step<=STEP.CAT+NCAT-1 ? `Category ${S.step-STEP.CAT+1} of ${NCAT}` : S.step===STEP.ADD ? "Additional characteristics" : S.step===STEP.DEMO ? "About you" : "Review";
+  $("#msum").textContent = `${where}: ${rated()} of ${TOTAL} rated`;
+  $("#mbar").style.width = Math.round(rated()/TOTAL*100)+"%";
+}
+
+/* ---------------- views ---------------- */
+const rated_of = d => ALLITEMS.filter(i => d.q1 && d.q1[i.code]).length;
+
+function viewConsent(){
+  const d = loadDraft(), mail = CONFIG.ethicsEmail;
+  return `
+  <img class="instlogo" src="${LOGO_UM}" alt="Maastricht University" width="500" height="159">
+  <h1 tabindex="-1" id="h">Development of a checklist of characteristics to help identify predatory journals: a Delphi study (Round 1)</h1>
+  ${d ? `<div class="notice"><p><strong>You have an unfinished survey on this device.</strong> ${rated_of(d)} characteristics rated so far.</p>
+     <button class="btn" data-act="resume">Continue where I left off</button> <button class="btn ghost" data-act="discard">Start again</button></div>` : ""}
+
+  <h2>1-Purpose of this round</h2>
+  <p>This Round 1 survey asks you, as an expert, to assess a set of proposed characteristics of predatory journals. Each characteristic is assessed independently of the others: your judgement on one item should not depend on how you rated any other item.</p>
+  <p>For every characteristic you will be asked how important it is for identifying a predatory journal, and whether the wording should be improved.</p>
+  <p>The questionnaire includes 65 candidate characteristics. For each item, you will rate its importance on a 1\u20135 scale, and optionally suggest wording changes. Also, panelists will be given the opportunity to suggest additional characteristics. Responses from this round will be aggregated in a report and be made available to the panel in Round 2.</p>
+
+  <h2>2. Informed Consent</h2>
+  <p>You are invited to participate in a 2-round Delphi study on developing a checklist of characteristics to help identify predatory journals. Participation is voluntary. The study consists of two consecutive surveys about 6 weeks apart. Completion will take approximately 30 minutes per survey. Your responses will be kept confidential and reported only in aggregate. You may stop at any time.</p>
+  <p>A more detailed participant information can be consulted below and the full study protocol can be found below.</p>
+
+  <details id="pis-detail" class="pis">
+    <summary>Participant Information Sheet</summary>
+    ${PIS.map(s => `<h3>${esc(s.h)}</h3>${s.p.map(t=>`<p>${esc(t)}</p>`).join("")}`).join("")}
+    <h3>Consent</h3>
+    <p>By selecting \u201cAgree to participate,\u201d you confirm that:</p>
+    <ul class="confirm">${CONFIRMS.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>
+    <h3>Questions or complaints</h3>
+    <p>If you have any questions or complaints regarding how your personal data are collected, stored, or used in this study, you may contact the Research Ethics Committee at Riyadh Second Health Cluster (<a href="mailto:${esc(mail)}">${esc(mail)}</a>).</p>
+  </details>
+
+  <details id="protocol-detail" class="pis">
+    <summary>Study Protocol</summary>
+    ${PROTOCOL.sections.map(s => s.sub
+      ? `<h3>${esc(s.h)}</h3>` + s.sub.map(sub => `<h4>${esc(sub.h)}</h4>${sub.p.map(t=>`<p>${t}</p>`).join("")}`).join("")
+      : `<h3>${esc(s.h)}</h3>${s.p.map(t=>`<p>${t}</p>`).join("")}`
+    ).join("")}
+    <h3>References</h3>
+    <ol class="refs">${PROTOCOL.references.map(r=>`<li>${r}</li>`).join("")}</ol>
+  </details>
+
+  <p>Click \u201cAgree to participate\u201d to begin the survey or \u201cDecline to participate\u201d to exit.</p>
+  <p>If you click on 'Decline to participate', we will not contact you further.</p>
+
+  <div role="radiogroup" aria-label="Consent" class="consent-box">
+    <label class="choice"><input type="radio" name="consent" value="Agree to participate" ${S.consent==="Agree to participate"?"checked":""}><span class="grow">Agree to participate</span></label>
+    <label class="choice"><input type="radio" name="consent" value="Decline to participate"><span class="grow">Decline to participate</span></label>
+  </div>
+  <div class="alert" id="consent-err" role="alert" tabindex="-1" hidden><p>Please choose \u201cAgree to participate\u201d or \u201cDecline to participate\u201d to continue.</p></div>
+  <div class="nav" style="border:0;padding-top:1.1rem;justify-content:flex-start"><button class="btn" data-act="consent">Continue</button></div>`;
+}
+
+function itemHtml(it){
+  const v = S.q1[it.code]||"", c = S.q2[it.code]||"";
+  return `<tr id="item-${it.code}" data-code="${it.code}">
+    <td class="code" aria-hidden="true">${it.code}</td>
+    <td class="text" id="t-${it.code}"><span class="sr">${it.code}. </span>${esc(it.text)}</td>
+    <td class="rate">
+      <div class="scale" role="radiogroup" aria-labelledby="t-${it.code}">
+        ${SCALE.map(s => `<label class="pill l${s.v}" title="${s.v}: ${s.t}"><input type="radio" name="Q1_${it.code}" value="${s.v}" ${String(v)===String(s.v)?"checked":""}><span>${s.v}<i class="sr"> ${s.t}</i></span></label>`).join("")}
+      </div>
+      <p class="chosen" aria-live="polite">${v?esc(SCALE[v-1].t):""}</p>
+      <p class="err" hidden>Choose a rating from 1 to 5.</p>
+    </td>
+    <td class="reform">
+      <label class="rlabel" for="c-${it.code}"><span class="sr">Suggested reformulation for ${it.code} </span><span aria-hidden="true">Reformulation</span></label>
+      <textarea id="c-${it.code}" data-c="${it.code}" rows="2" placeholder="Optional">${esc(c)}</textarea>
+    </td>
+  </tr>`;
+}
+function viewCat(ci){
+  const c = catN(ci), last = ci===NCAT-1;
+  const nextName = last ? "Additional characteristics" : catN(ci+1).name;
+  return `
+  ${ci===0 ? `<h1 tabindex="-1" id="h" class="secnum"><span class="num">3.</span><span class="lbl">Questions</span></h1>
+  <p class="lede" style="margin-bottom:0">Mark one box in Q1 for every characteristic and complete Q2 only if modifications are needed.</p>
+  <p class="reminder">Reminder \u2014 Q1 scale:&nbsp; ${SCALE.map(s=>`${s.v} ${s.t}`).join(" &middot; ")}</p>` : ""}
+  <div class="alert" id="page-err" role="alert" tabindex="-1" hidden></div>
+  ${ci===0 ? `<p class="small" style="margin-top:14px">Please do not enter personal information (your name, employer or contact details) in any of the text boxes.</p>
+  <p class="scrollhint">Scroll sideways to see all columns &rarr;</p>` : ""}
+  <div class="tablewrap">
+    <table class="qtable">
+      <caption class="sr">${esc(c.name)}: characteristic, rating, and optional suggested reformulation</caption>
+      <thead><tr>
+        <th scope="col" class="colcode">Item</th>
+        <th scope="col" class="coltext">Characteristic</th>
+        <th scope="col" class="colrate">Q1. Importance for identifying a predatory journal (1\u20135)</th>
+        <th scope="col" class="colreform">Q2. Suggested reformulation or modification<span class="opt">(optional)</span></th>
+      </tr></thead>
+      <tbody>
+        <tr class="catrow"><td colspan="4" ${ci===0?"":'id="h" tabindex="-1"'}><span class="n">Category ${c.n}</span> &middot; ${esc(c.name)} <span class="cnt">(${c.items.length} items)</span></td></tr>
+        ${c.items.map(itemHtml).join("")}
+      </tbody>
+    </table>
+  </div>
+  <div class="nav">
+    <button class="btn ghost" data-go="${ci===0?STEP.CONSENT:stepOfCat(ci-1)}">Back</button>
+    <button class="btn" data-act="next-cat" data-ci="${ci}">Next: ${esc(nextName)}</button>
+  </div>`;
+}
+
+function viewAdd(){
+  return `
+  <h1 tabindex="-1" id="h">4. Additional characteristics</h1>
+  <p class="lede">Are there any additional characteristics that are not listed in our list and you believe should be considered for inclusion? If yes, please describe the characteristic.</p>
+  <label for="add" class="fieldlabel">Additional characteristics</label>
+  <textarea id="add" rows="9" data-add>${esc(S.additional)}</textarea>
+  <p class="small" style="margin-top:8px">Please do not enter personal information (your name, employer or contact details).</p>
+  <div class="nav"><button class="btn ghost" data-go="${stepOfCat(NCAT-1)}">Back</button><button class="btn" data-go="${STEP.DEMO}">Next: About you</button></div>`;
+}
+
+function radioGroup(key, legend, hint, other){
+  const cur = S.demo[key];
+  return `<fieldset class="q" id="q-${key}"><legend>${legend}</legend>${hint?`<p class="hint">${hint}</p>`:""}
+    ${OPT[key].map(o => {
+      const isOther = o==="Other";
+      return `<label class="choice"><input type="radio" name="${key}" value="${esc(o)}" data-demo="${key}" ${cur===o?"checked":""}>
+        <span class="grow">${isOther?"Other (please specify)":esc(o)}${isOther?`<input type="text" class="other" data-demo-text="${key}_other" aria-label="Other, please specify" value="${esc(S.demo[key+"_other"]||"")}" ${cur==="Other"?"":"hidden"}>`:""}</span></label>`;
+    }).join("")}
+    <p class="err" hidden></p></fieldset>`;
+}
+function viewDemo(){
+  const d=S.demo;
+  const countries = `<option value="">Select a country</option>` + SPEC.countries.map(c=>`<option value="${c.code}" ${d.country_code===c.code?"selected":""}>${esc(c.name)}</option>`).join("");
+  const sectors = `<fieldset class="q" id="q-sectors"><legend>Which professional sector(s) do you work in?</legend><p class="hint">Please Select all that apply.</p>
+    ${OPT.sectors.map(o => { const isOther=o==="Other", on=d.sectors.includes(o);
+      return `<label class="choice"><input type="checkbox" value="${esc(o)}" data-sector ${on?"checked":""}><span class="grow">${isOther?"Other (please specify)":esc(o)}${isOther?`<input type="text" class="other" data-demo-text="sector_other" aria-label="Other, please specify" value="${esc(d.sector_other)}" ${on?"":"hidden"}>`:""}</span></label>`; }).join("")}
+    <p class="err" hidden></p></fieldset>`;
+  return `
+  <h1 tabindex="-1" id="h">5. Your socio-demographic and professional characteristics</h1>
+  <p class="lede">Please select the response that best applies, unless otherwise indicated.</p>
+  <div class="alert" id="page-err" role="alert" tabindex="-1" hidden></div>
+  ${radioGroup("age_group","Your age group:")}
+  ${radioGroup("gender","Your gender:")}
+  <fieldset class="q" id="q-country_code"><legend><label for="country">Your primary country of professional practice:</label></legend>
+    <p class="hint">Select one country from the drop-down list.</p>
+    <select id="country" data-demo-select="country_code">${countries}</select><p class="err" hidden></p></fieldset>
+  ${radioGroup("primary_role","Which group best represents your primary role?")}
+  ${sectors}
+  ${radioGroup("discipline","What is your main disciplinary field?")}
+  ${radioGroup("experience","Years of relevant professional experience?")}
+  <div class="nav"><button class="btn ghost" data-go="${STEP.ADD}">Back</button><button class="btn" data-act="to-review">Next: Review and submit</button></div>`;
+}
+
+function viewReview(){
+  const missing = ALLITEMS.filter(i=>!S.q1[i.code]).map(i=>i.code);
+  const dm = demoMissing();
+  const nComments = Object.values(S.q2).filter(v=>v && v.trim()).length;
+  return `
+  <h1 tabindex="-1" id="h">Review and submit</h1>
+  <p class="lede">Check that everything is complete. Once you submit, your responses cannot be edited.</p>
+  <div class="alert" id="page-err" role="alert" tabindex="-1" hidden></div>
+  <ul class="sum">
+    <li><span class="st ${missing.length?"x":""}">${missing.length?"!":"\u2713"}</span><div><strong>${rated()} of ${TOTAL} characteristics rated</strong>
+      ${missing.length?`<div class="small">Still to rate (select to go to the item):</div><div class="chips">${missing.map(c=>`<button type="button" data-item="${c}">${c}</button>`).join("")}</div>`:""}</div></li>
+    <li><span class="st ${dm.length?"x":""}">${dm.length?"!":"\u2713"}</span><div><strong>About you: ${7-dm.length} of 7 answered</strong>
+      ${dm.length?`<div class="small">Missing: ${dm.map(k=>DEMO_LABEL[k]).join(", ")}. <button type="button" class="linkbtn" data-go="${STEP.DEMO}">Go to About you</button></div>`:""}</div></li>
+    <li><span class="st o">${nComments}</span><div><strong>${nComments===1?"1 suggested rewording":nComments+" suggested rewordings"}</strong><div class="small">Optional</div></div></li>
+    <li><span class="st o">${S.additional.trim()?"1":"0"}</span><div><strong>Additional characteristics: ${S.additional.trim()?"provided":"none added"}</strong><div class="small">Optional</div></div></li>
+  </ul>
+  <p class="small" style="margin-top:1.2rem"><strong>Return.</strong> Please complete the survey by the date given in the invitation. A summary of the panel\u2019s Round 1 results will be circulated with the Round 2 questionnaire. Thank you for contributing your expertise to this Delphi panel.</p>
+  <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+  <div id="send-err"></div>
+  <div class="nav"><button class="btn ghost" data-go="${STEP.DEMO}">Back</button><button class="btn" id="send" data-act="submit">Submit my responses</button></div>`;
+}
+
+function viewDone(){
+  const ref = (S.sid||"").replace(/-/g,"").slice(0,8).toUpperCase();
+  const preview = !CONFIG.endpoint;
+  return `
+  <h1 tabindex="-1" id="h">Thank you</h1>
+  <p class="lede">Your responses have ${preview?"been prepared (preview mode)":"been received"}.</p>
+  ${preview ? `<div class="notice"><p><strong>Preview mode.</strong> Nothing was sent. Download the CSV to check that your columns line up with the Excel template.</p><button class="btn" data-act="csv">Download CSV</button></div>` : ""}
+  <p>A summary of the panel\u2019s Round 1 results will be circulated with the Round 2 questionnaire. Thank you for contributing your expertise to this Delphi panel.</p>
+  <p class="small" style="margin-bottom:0">Submission reference. Quote it if you need to contact the research team about your submission.</p>
+  <div class="ref">${esc(ref.slice(0,4)+"-"+ref.slice(4))}</div>`;
+}
+function viewDeclined(){
+  return `<h1 tabindex="-1" id="h">Thank you for your time</h1>
+  <p class="lede">You chose not to participate. No answers have been recorded, and we will not contact you further.</p>
+  <p class="small">If you clicked \u201cDecline\u201d by mistake, you can <a href="" data-act="restart">return to the start</a>.</p>`;
+}
+
+/* ---------------- render + navigation ---------------- */
+function render(){
+  const s=S.step; let html;
+  if(s===STEP.CONSENT) html=viewConsent();
+  else if(s>=STEP.CAT && s<STEP.CAT+NCAT) html=viewCat(s-STEP.CAT);
+  else if(s===STEP.ADD) html=viewAdd();
+  else if(s===STEP.DEMO) html=viewDemo();
+  else if(s===STEP.REVIEW) html=viewReview();
+  else if(s===STEP.DONE) html=viewDone();
+  else html=viewDeclined();
+  $("#main").innerHTML = html;
+  updateChrome();
+}
+function go(step, opts={}){
+  S.step = step; save(); render();
+  if(!opts.keepScroll){ window.scrollTo(0,0); }
+  const h=$("#h"); if(h && !opts.noFocus) h.focus({preventScroll:true});
+}
+function goItem(code){
+  const it = ALLITEMS.find(i=>i.code===code); if(!it) return;
+  go(stepOfCat(it.cat-1),{noFocus:true,keepScroll:true});
+  const el = $("#item-"+code); if(el){ el.scrollIntoView({block:"center"}); el.classList.add("flash"); const first=$("input",el); if(first) first.focus({preventScroll:true}); }
+}
+function showPageErr(msg){ const a=$("#page-err"); if(!a) return; a.innerHTML=`<p>${msg}</p>`; a.hidden=false; a.focus({preventScroll:true}); }
+
+function nextCat(ci){
+  const c = catN(ci), miss = c.items.filter(i=>!S.q1[i.code]);
+  $$("tr.bad").forEach(e=>{e.classList.remove("bad"); $(".err",e).hidden=true;});
+  if(miss.length){
+    miss.forEach(i => { const el=$("#item-"+i.code); el.classList.add("bad"); $(".err",el).hidden=false; });
+    showPageErr(miss.length===1 ? "1 characteristic still needs a rating. It is highlighted below." : `${miss.length} characteristics still need a rating. They are highlighted below.`);
+    const first=$("#item-"+miss[0].code); first.scrollIntoView({block:"center"});
+    return;
+  }
+  go(ci===NCAT-1 ? STEP.ADD : stepOfCat(ci+1));
+}
+
+/* ---------------- payload + sending ---------------- */
+function buildPayload(){
+  const d=S.demo, ctry = SPEC.countries.find(c=>c.code===d.country_code);
+  const p = {
+    submission_id:S.sid, survey_version:CONFIG.surveyVersion, panelist_code:PID,
+    consent:S.consent, consent_at_utc:S.consentAt, submitted_at_utc:new Date().toISOString(),
+    age_group:d.age_group, gender:d.gender, country_code:d.country_code, country:ctry?ctry.name:"",
+    primary_role:d.primary_role, primary_role_other:d.primary_role==="Other"?d.primary_role_other.trim():"",
+    sectors:d.sectors.join("; "), sector_other:d.sectors.includes("Other")?d.sector_other.trim():"",
+    discipline:d.discipline, discipline_other:d.discipline==="Other"?d.discipline_other.trim():"",
+    experience:d.experience, additional_characteristics:S.additional.trim(),
+    hp:($("#hp")||{}).value||""
+  };
+  ALLITEMS.forEach(i => { p["Q1_"+i.code]=Number(S.q1[i.code]); p["Q2_"+i.code]=(S.q2[i.code]||"").trim(); });
+  return p;
+}
+function toCsv(p){
+  const cols=SPEC.columns.filter(c=>!SPEC.serverColumns.includes(c));
+  const q=v=>{v=(v==null?"":String(v)); return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  return "\ufeff"+cols.map(q).join(",")+"\r\n"+cols.map(c=>q(p[c])).join(",")+"\r\n";
+}
+function download(name,text){
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));
+  a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+function finish(){ clearDraft(); go(STEP.DONE); }
+
+async function submit(){
+  if(sending) return;
+  const missing = ALLITEMS.filter(i=>!S.q1[i.code]), dm = demoMissing();
+  if(missing.length || dm.length){
+    showPageErr(`Your survey is not complete yet: ${missing.length?missing.length+" characteristic(s) unrated":""}${missing.length&&dm.length?" and ":""}${dm.length?dm.length+" \u201cAbout you\u201d question(s) unanswered":""}. Use the links below to fix this.`);
+    return;
+  }
+  lastPayload = buildPayload();
+  if(lastPayload.hp){ finish(); return; }          // bot trap: pretend success
+  if(!CONFIG.endpoint){ finish(); return; }        // preview mode
+  sending = true; const btn=$("#send"); btn.disabled=true; btn.textContent="Sending\u2026"; $("#send-err").innerHTML="";
+  const ctl = new AbortController(); const to = setTimeout(()=>ctl.abort(), 45000);
+  try{
+    const res = await fetch(CONFIG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(lastPayload),signal:ctl.signal});
+    const out = await res.json();
+    if(!out || !out.ok) throw new Error((out && out.error) || "The server did not accept the submission.");
+    clearTimeout(to); sending=false; finish();
+  }catch(err){
+    clearTimeout(to); sending=false;
+    btn.disabled=false; btn.textContent="Try sending again";
+    $("#send-err").innerHTML = `<div class="alert" role="alert"><p><strong>Your responses have not been sent.</strong> Nothing has been lost: they are still saved on this page. Check your internet connection and try again.</p>
+      <p>If it keeps failing, download a copy and email it to the research team.</p><button type="button" class="btn ghost" data-act="csv">Download my responses</button></div>`;
+  }
+}
+
+/* ---------------- events ---------------- */
+const main = $("#main");
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-go],[data-act],[data-item]"); if(!t) return;
+  if(t.dataset.go!==undefined){ e.preventDefault(); go(Number(t.dataset.go)); const m=$("#mrail"); if(m) m.open=false; return; }
+  if(t.dataset.item){ e.preventDefault(); goItem(t.dataset.item); return; }
+  const act=t.dataset.act;
+  if(act==="consent"){
+    const v=(document.querySelector('input[name="consent"]:checked')||{}).value;
+    if(!v){ $("#consent-err").hidden=false; $("#consent-err").focus?.(); return; }
+    if(v==="Decline to participate"){ S=blank(); S.step=STEP.DECLINED; clearDraft(); render(); window.scrollTo(0,0); $("#h").focus(); return; }
+    if(S.consent!=="Agree to participate"){ S.consent=v; S.consentAt=new Date().toISOString(); S.sid=S.sid||uid(); }
+    go(STEP.CAT);
+  }
+  else if(act==="next-cat"){ e.preventDefault(); nextCat(Number(t.dataset.ci)); }
+  else if(act==="to-review"){
+    const dm=demoMissing(); $$(".q.bad").forEach(q=>{q.classList.remove("bad"); $(".err",q).hidden=true;});
+    if(dm.length){
+      dm.forEach(k=>{ const q=$("#q-"+k); q.classList.add("bad"); const er=$(".err",q); er.textContent="Please answer this question."; er.hidden=false; });
+      showPageErr(dm.length===1?"1 question still needs an answer. It is highlighted below.":`${dm.length} questions still need an answer. They are highlighted below.`);
+      $("#q-"+dm[0]).scrollIntoView({block:"center"}); return;
+    }
+    go(STEP.REVIEW);
+  }
+  else if(act==="submit"){ submit(); }
+  else if(act==="csv"){ const p=lastPayload||buildPayload(); download("delphi-round1-"+(S.sid||"draft").slice(0,8)+".csv", toCsv(p)); }
+  else if(act==="resume"){ const d=loadDraft(); if(d){ S=Object.assign(blank(),d); go(Math.max(STEP.CAT,Math.min(S.step,STEP.REVIEW))); } }
+  else if(act==="discard"){ clearDraft(); S=blank(); render(); }
+  else if(act==="restart"){ e.preventDefault(); S=blank(); render(); window.scrollTo(0,0); }
+});
+
+main.addEventListener("change", e => {
+  const t=e.target;
+  if(t.name && t.name.startsWith("Q1_")){
+    const code=t.name.slice(3); S.q1[code]=t.value;
+    const el=$("#item-"+code); el.classList.remove("bad","flash"); $(".err",el).hidden=true;
+    $(".chosen",el).textContent=SCALE[t.value-1].t; save(); updateChrome();
+    if(!$("tr.bad") && $("#page-err")) $("#page-err").hidden=true;
+  }
+  else if(t.name==="consent"){ const er=$("#consent-err"); if(er) er.hidden=true; }
+  else if(t.dataset.demo){ S.demo[t.dataset.demo]=t.value; syncOther(); afterDemo(t); }
+  else if(t.dataset.demoSelect){ S.demo[t.dataset.demoSelect]=t.value; afterDemo(t); }
+  else if(t.hasAttribute("data-sector")){ S.demo.sectors=$$("[data-sector]:checked").map(x=>x.value); syncOther(); afterDemo(t); }
+});
+main.addEventListener("input", e => {
+  const t=e.target;
+  if(t.dataset.c){ S.q2[t.dataset.c]=t.value; save(); }
+  else if(t.hasAttribute("data-add")){ S.additional=t.value; save(); updateChrome(); }
+  else if(t.dataset.demoText){ S.demo[t.dataset.demoText]=t.value; save(); }
+});
+function syncOther(){
+  $$("[data-demo-text]").forEach(inp => {
+    const k=inp.dataset.demoText;
+    const on = k==="sector_other" ? S.demo.sectors.includes("Other") : S.demo[k.replace("_other","")]==="Other";
+    inp.hidden=!on; if(on && document.activeElement && document.activeElement.type==="radio") inp.focus();
+  });
+}
+function afterDemo(t){
+  const q=t.closest(".q"); if(q){ q.classList.remove("bad"); const er=$(".err",q); if(er) er.hidden=true; }
+  save(); updateChrome();
+}
+
+/* ---------------- start ---------------- */
+$("#previewbar").hidden = !!CONFIG.endpoint;
+render();
+</script>
+</body>
+</html>
